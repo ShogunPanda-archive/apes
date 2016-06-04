@@ -15,13 +15,30 @@ https://github.com/ShogunPanda/apes
 
 Apes makes it easy to deal with [JSON API](http://jsonapi.org/) by abstracting all the oddities of the specification.
 
+## Routes
+
+There's no requirement at all here, but a good start point for your routes might be the following:
+
+```ruby
+Rails.application.routes.draw do
+  # This is to enable AJAX cross domain
+  match '*path', to: 'application#handle_cors', via: :options
+
+  # Insert your routes here
+
+  # Catch alls
+  match("/*unused", via: :all, to: "application#error_handle_not_found")
+  root(to: "application#error_handle_not_found")
+end
+```
+
 ## Controller
 
 Once your controller inherits from `Apes::Controller`, you can implement a CRUD in virtually no time:
 
 ```ruby
 class UsersController < Apes::Controller
-  before_action :find_user
+  before_action :find_user, except: [:index, :create]
 
   def index
     @objects = paginate(User.all)

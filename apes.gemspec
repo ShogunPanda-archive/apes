@@ -25,9 +25,10 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = ">= 2.3.0"
 
   # Add gem dependencies here
-  gem.add_dependency("lazier", "~> 4.2.1")
-  gem.add_dependency("mustache", "~> 1.0.3")
-  gem.add_dependency("jwt", "~> 1.5.4")
+  gem.add_dependency("lazier", "~> 4.2")
+  gem.add_dependency("mustache", "~> 1.0")
+  gem.add_dependency("jwt", "~> 1.5")
+  gem.add_dependency("jbuilder", "~> 2.5")
   gem.add_dependency("rails", "~> 4.2")
   gem.add_dependency("rails-api", "~> 0.4")
 end

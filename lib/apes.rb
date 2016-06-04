@@ -6,6 +6,7 @@
 require "lazier"
 require "mustache"
 require "jwt"
+require "jbuilder"
 require "active_model"
 require "rails"
 require "rails-api/action_controller/api"
@@ -28,3 +29,12 @@ require "apes/concerns/response"
 require "apes/controller"
 
 Lazier.load!(:object, :string)
+
+ActiveSupport.on_load(:action_controller) do
+  prepend_view_path(Apes::RuntimeConfiguration.root + "/views") if respond_to?(:prepend_view_path)
+end
+
+ActiveSupport.on_load(:action_view) do
+  include Apes::Concerns::Response
+  include Apes::Concerns::Pagination
+end

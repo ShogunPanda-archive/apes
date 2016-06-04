@@ -26,12 +26,18 @@ module Apes
       default
     end
 
+    # Returns the root directory of apes.
+    # @return [String]
+    def self.root
+      Pathname.new(Gem.loaded_specs["apes"].full_gem_path).to_s
+    end
+
     # Returns the current Rails root directory.
     #
     # @param default [String] The fallback if Rails configuration is invalid.
-    # @return [Object] The current Rails root directory.
+    # @return [String] The current Rails root directory.
     def self.rails_root(default = nil)
-      Rails.root
+      Rails.root.to_s
     rescue
       default
     end
@@ -39,7 +45,7 @@ module Apes
     # Returns the current RubyGems root directory.
     #
     # @param default [String] The fallback if RubyGems configuration is invalid.
-    # @return [Object] The current RubyGems root directory.
+    # @return [Hash] The current RubyGems root directory.
     def self.gems_root(default = nil)
       Pathname.new(Gem.loaded_specs["lazier"].full_gem_path).parent.to_s
     rescue

@@ -30,6 +30,12 @@ describe Apes::RuntimeConfiguration do
     end
   end
 
+  describe ".root" do
+    it "should get the information from RubyGems" do
+      expect(Apes::RuntimeConfiguration.root).to be_a(String)
+    end
+  end
+
   describe ".rails_root" do
     it "should get the information from Rails" do
       stub_const("Rails", {root: "/ABC"}.ensure_access(:dotted))

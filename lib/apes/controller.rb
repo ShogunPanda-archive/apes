@@ -13,13 +13,12 @@ module Apes
   # @attribute [r] request_cursor
   #   @return [Apes::PaginationCursor] The original pagination cursor sent from the client.
   class Controller < ActionController::API
+    include ActionController::ImplicitRender
     include ActionView::Layouts
     include Apes::Concerns::Request
     include Apes::Concerns::Response
     include Apes::Concerns::Pagination
     include Apes::Concerns::Errors
-    helper Apes::Concerns::Response
-    helper Apes::Concerns::Pagination
 
     layout "general"
     before_filter :request_handle_cors
