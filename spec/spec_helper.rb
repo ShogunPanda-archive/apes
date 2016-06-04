@@ -24,3 +24,6 @@ end
 require "active_record"
 require File.dirname(__FILE__) + "/../lib/apes"
 Lazier.load!(:hash)
+
+::I18n.enforce_available_locales = false
+Lazier::I18n.default_locale = :en
