@@ -37,7 +37,7 @@ module Apes
     # @return [Hash] Default URL options for the request.
     def default_url_options
       rv = {only_path: false}
-      rv = {host: request_source_host} if Rails.env.development?
+      rv = {host: request_source_host} if Apes::RuntimeConfiguration.development?
       rv
     end
 

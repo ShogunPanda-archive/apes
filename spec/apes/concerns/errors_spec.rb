@@ -21,10 +21,6 @@ describe Apes::Concerns::Errors do
     end
   end
 
-  before(:each) do
-    stub_const("Rails", {application: {rails_root: Dir.pwd}}.ensure_access(:dotted))
-  end
-
   subject { ErrorHandlingMockContainer.new }
 
   describe "fail_request!" do

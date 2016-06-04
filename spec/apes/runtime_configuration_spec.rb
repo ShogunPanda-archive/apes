@@ -6,30 +6,6 @@
 require "spec_helper"
 
 describe Apes::RuntimeConfiguration do
-  describe ".jwt_token" do
-    it "should get the information from Rails secrets" do
-      stub_const("Rails", {application: {secrets: {jwt: "SECRET"}}}.ensure_access(:dotted))
-      expect(Apes::RuntimeConfiguration.jwt_token).to eq("SECRET")
-    end
-
-    it "should fallback to a default" do
-      expect(Apes::RuntimeConfiguration.jwt_token).to eq("secret")
-      expect(Apes::RuntimeConfiguration.jwt_token("DEFAULT")).to eq("DEFAULT")
-    end
-  end
-
-  describe ".timestamp_formats" do
-    it "should get the information from Rails secrets" do
-      stub_const("Rails", {application: {config: {timestamp_formats: {a: 1}}}}.ensure_access(:dotted))
-      expect(Apes::RuntimeConfiguration.timestamp_formats).to eq({a: 1})
-    end
-
-    it "should fallback to a default" do
-      expect(Apes::RuntimeConfiguration.timestamp_formats).to eq({})
-      expect(Apes::RuntimeConfiguration.timestamp_formats("DEFAULT")).to eq("DEFAULT")
-    end
-  end
-
   describe ".root" do
     it "should get the information from RubyGems" do
       expect(Apes::RuntimeConfiguration.root).to be_a(String)
@@ -60,6 +36,65 @@ describe Apes::RuntimeConfiguration do
 
       expect(Apes::RuntimeConfiguration.gems_root).to be_nil
       expect(Apes::RuntimeConfiguration.gems_root("DEFAULT")).to eq("DEFAULT")
+    end
+  end
+
+  describe ".environment" do
+    it "should get the information from Rails secrets" do
+      stub_const("Rails", {env: "FOO"}.ensure_access(:dotted))
+      expect(Apes::RuntimeConfiguration.environment).to eq("FOO")
+    end
+
+    it "should fallback to a default" do
+      allow(Rails).to receive(:env).and_raise(RuntimeError)
+      expect(Apes::RuntimeConfiguration.environment).to eq("development")
+      expect(Apes::RuntimeConfiguration.environment("DEFAULT")).to eq("DEFAULT")
+    end
+  end
+
+  describe ".environment" do
+    it "should check if Rails is in development" do
+      stub_const("Rails", {env: "development"}.ensure_access(:dotted))
+      expect(Apes::RuntimeConfiguration.development?).to be_truthy
+
+      stub_const("Rails", {env: "FOO"}.ensure_access(:dotted))
+      expect(Apes::RuntimeConfiguration.development?).to be_falsey
+    end
+  end
+
+  describe ".jwt_token" do
+    it "should get the information from Rails secrets" do
+      stub_const("Rails", {application: {secrets: {jwt: "SECRET"}}}.ensure_access(:dotted))
+      expect(Apes::RuntimeConfiguration.jwt_token).to eq("SECRET")
+    end
+
+    it "should fallback to a default" do
+      expect(Apes::RuntimeConfiguration.jwt_token).to eq("secret")
+      expect(Apes::RuntimeConfiguration.jwt_token("DEFAULT")).to eq("DEFAULT")
+    end
+  end
+
+  describe ".cors_source" do
+    it "should get the information from Rails secrets" do
+      stub_const("Rails", {application: {secrets: {cors_source: "SOURCE"}}}.ensure_access(:dotted))
+      expect(Apes::RuntimeConfiguration.cors_source).to eq("SOURCE")
+    end
+  
+    it "should fallback to a default" do
+      expect(Apes::RuntimeConfiguration.cors_source).to eq("localhost")
+      expect(Apes::RuntimeConfiguration.cors_source("DEFAULT")).to eq("DEFAULT")
+    end
+  end
+
+  describe ".timestamp_formats" do
+    it "should get the information from Rails secrets" do
+      stub_const("Rails", {application: {config: {timestamp_formats: {a: 1}}}}.ensure_access(:dotted))
+      expect(Apes::RuntimeConfiguration.timestamp_formats).to eq({a: 1})
+    end
+
+    it "should fallback to a default" do
+      expect(Apes::RuntimeConfiguration.timestamp_formats).to eq({})
+      expect(Apes::RuntimeConfiguration.timestamp_formats("DEFAULT")).to eq("DEFAULT")
     end
   end
 end

@@ -15,6 +15,7 @@ describe Apes::Controller do
   
   describe "#default_url_options" do
     it "should always mark the host as needed in URLs" do
+      allow(Apes::RuntimeConfiguration).to receive(:development?).and_return(true)
       expect(subject).to receive(:request).and_return(OpenStruct.new(url: "http://localhost"))
       expect(subject.default_url_options[:only_path]).to be_falsey
     end
