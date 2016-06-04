@@ -93,7 +93,7 @@
   
     
       <dt class="r2">Includes:</dt>
-      <dd class="r2">ActionView::Layouts, <span class='object_link'><a href="Concerns/Errors.html" title="Apes::Concerns::Errors (module)">Apes::Concerns::Errors</a></span>, <span class='object_link'><a href="Concerns/Pagination.html" title="Apes::Concerns::Pagination (module)">Apes::Concerns::Pagination</a></span>, <span class='object_link'><a href="Concerns/Request.html" title="Apes::Concerns::Request (module)">Apes::Concerns::Request</a></span>, <span class='object_link'><a href="Concerns/Response.html" title="Apes::Concerns::Response (module)">Apes::Concerns::Response</a></span></dd>
+      <dd class="r2">ActionController::ImplicitRender, ActionView::Layouts, <span class='object_link'><a href="Concerns/Errors.html" title="Apes::Concerns::Errors (module)">Apes::Concerns::Errors</a></span>, <span class='object_link'><a href="Concerns/Pagination.html" title="Apes::Concerns::Pagination (module)">Apes::Concerns::Pagination</a></span>, <span class='object_link'><a href="Concerns/Request.html" title="Apes::Concerns::Request (module)">Apes::Concerns::Request</a></span>, <span class='object_link'><a href="Concerns/Response.html" title="Apes::Concerns::Response (module)">Apes::Concerns::Response</a></span></dd>
       
     
   
@@ -358,6 +358,7 @@
 
   
   
+  
   <div id="instance_attr_details" class="attr_details">
     <h2>Instance Attribute Details</h2>
     
@@ -466,20 +467,18 @@
 73
 74
 75
-76
-77</pre>
+76</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 15</span>
 
 <span class='kw'>class</span> <span class='const'>Controller</span> <span class='op'>&lt;</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>API</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>ImplicitRender</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>ActionView</span><span class='op'>::</span><span class='const'>Layouts</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Request</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Response</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Pagination</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Errors</span>
-  <span class='id identifier rubyid_helper'>helper</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Response</span>
-  <span class='id identifier rubyid_helper'>helper</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Pagination</span>
 
   <span class='id identifier rubyid_layout'>layout</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>general</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_before_filter'>before_filter</span> <span class='symbol'>:request_handle_cors</span>
@@ -498,7 +497,7 @@
 </span>  <span class='comment'># @return [Hash] Default URL options for the request.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_default_url_options'>default_url_options</span>
     <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>only_path:</span> <span class='kw'>false</span><span class='rbrace'>}</span>
-    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>host:</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>host:</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
     <span class='id identifier rubyid_rv'>rv</span>
   <span class='kw'>end</span>
 
@@ -645,20 +644,18 @@
 73
 74
 75
-76
-77</pre>
+76</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 15</span>
 
 <span class='kw'>class</span> <span class='const'>Controller</span> <span class='op'>&lt;</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>API</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>ImplicitRender</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>ActionView</span><span class='op'>::</span><span class='const'>Layouts</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Request</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Response</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Pagination</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Errors</span>
-  <span class='id identifier rubyid_helper'>helper</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Response</span>
-  <span class='id identifier rubyid_helper'>helper</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Pagination</span>
 
   <span class='id identifier rubyid_layout'>layout</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>general</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_before_filter'>before_filter</span> <span class='symbol'>:request_handle_cors</span>
@@ -677,7 +674,7 @@
 </span>  <span class='comment'># @return [Hash] Default URL options for the request.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_default_url_options'>default_url_options</span>
     <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>only_path:</span> <span class='kw'>false</span><span class='rbrace'>}</span>
-    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>host:</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>host:</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
     <span class='id identifier rubyid_rv'>rv</span>
   <span class='kw'>end</span>
 
@@ -824,20 +821,18 @@
 73
 74
 75
-76
-77</pre>
+76</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 15</span>
 
 <span class='kw'>class</span> <span class='const'>Controller</span> <span class='op'>&lt;</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>API</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>ImplicitRender</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>ActionView</span><span class='op'>::</span><span class='const'>Layouts</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Request</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Response</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Pagination</span>
   <span class='id identifier rubyid_include'>include</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Errors</span>
-  <span class='id identifier rubyid_helper'>helper</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Response</span>
-  <span class='id identifier rubyid_helper'>helper</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Pagination</span>
 
   <span class='id identifier rubyid_layout'>layout</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>general</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_before_filter'>before_filter</span> <span class='symbol'>:request_handle_cors</span>
@@ -856,7 +851,7 @@
 </span>  <span class='comment'># @return [Hash] Default URL options for the request.
 </span>  <span class='kw'>def</span> <span class='id identifier rubyid_default_url_options'>default_url_options</span>
     <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>only_path:</span> <span class='kw'>false</span><span class='rbrace'>}</span>
-    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>host:</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>host:</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
     <span class='id identifier rubyid_rv'>rv</span>
   <span class='kw'>end</span>
 
@@ -948,18 +943,18 @@ It ensures that the host is always included and that is set properly in developm
       <pre class="lines">
 
 
+38
 39
 40
 41
-42
-43</pre>
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_url_options'>default_url_options</span>
   <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>only_path:</span> <span class='kw'>false</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>host:</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>host:</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
   <span class='id identifier rubyid_rv'>rv</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -998,12 +993,12 @@ It ensures that the host is always included and that is set properly in developm
       <pre class="lines">
 
 
+50
 51
-52
-53</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_handle_cors'>handle_cors</span>
   <span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='label'>nothing:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>status:</span> <span class='symbol'>:no_content</span><span class='rparen'>)</span>
@@ -1072,14 +1067,14 @@ It ensures that the host is always included and that is set properly in developm
       <pre class="lines">
 
 
+58
 59
 60
 61
-62
-63</pre>
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/apes/controller.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_render_error'>render_error</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_errors'>errors</span><span class='rparen'>)</span>
   <span class='ivar'>@errors</span> <span class='op'>=</span> <span class='id identifier rubyid_errors'>errors</span>
@@ -1096,7 +1091,7 @@ It ensures that the host is always included and that is set properly in developm
 </div>
 
     <div id="footer">
-  Generated on Sat Jun  4 09:48:14 2016 by
+  Generated on Sat Jun  4 12:33:34 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>

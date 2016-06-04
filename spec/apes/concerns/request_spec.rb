@@ -37,6 +37,7 @@ describe Apes::Concerns::Request do
 
   before(:each) do
     allow(Apes::RuntimeConfiguration).to receive(:timestamp_formats).and_return({full: "%FT%T.%L%z"})
+    allow(Apes::RuntimeConfiguration).to receive(:development?).and_return(true)
   end
 
   subject { RequestHandlingMockContainer.new }

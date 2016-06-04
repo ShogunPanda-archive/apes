@@ -63,14 +63,166 @@
 
     <div id="content"><div id='filecontents'><h1 id="apes">apes</h1>
 
-<p><a href="http://badge.fury.io/js/apes"><img src="https://badge.fury.io/js/apes.png" alt="Package Version" /></a>
+<p><a href="http://badge.fury.io/rb/apes"><img src="https://badge.fury.io/rb/apes.png" alt="Gem Version" /></a>
 <a href="https://gemnasium.com/ShogunPanda/apes"><img src="https://gemnasium.com/ShogunPanda/apes.png?travis" alt="Dependency Status" /></a>
 <a href="http://travis-ci.org/ShogunPanda/apes"><img src="https://secure.travis-ci.org/ShogunPanda/apes.png?branch=master" alt="Build Status" /></a>
 <a href="https://coveralls.io/r/ShogunPanda/apes"><img src="https://coveralls.io/repos/ShogunPanda/apes/badge.png" alt="Coverage Status" /></a></p>
 
 <p>A tiny JSON API framework for Ruby on Rails.</p>
 
+<p>https://sw.cowtech.it/apes</p>
+
 <p>https://github.com/ShogunPanda/apes</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Apes makes it easy to deal with <a href="http://jsonapi.org/">JSON API</a> by abstracting all the oddities of the specification.</p>
+
+<h2 id="routes">Routes</h2>
+
+<p>There’s no requirement at all here, but a good start point for your routes might be the following:</p>
+
+<p>```ruby
+Rails.application.routes.draw do
+  # This is to enable AJAX cross domain
+  match ‘*path’, to: ‘application#handle_cors’, via: :options</p>
+
+<p># Insert your routes here</p>
+
+<p># Catch alls
+  match(“/*unused”, via: :all, to: “application#error_handle_not_found”)
+  root(to: “application#error_handle_not_found”)
+end
+```</p>
+
+<h2 id="controller">Controller</h2>
+
+<p>Once your controller inherits from <code>Apes::Controller</code>, you can implement a CRUD in virtually no time:</p>
+
+<p>```ruby
+class UsersController &lt; Apes::Controller
+  before_action :find_user, except: [:index, :create]</p>
+
+<p>def index
+    @objects = paginate(User.all)
+  end</p>
+
+<p>def show
+  end</p>
+
+<p>def create
+    @object = User.new
+    attributes = request_extract_model(@object)
+    @object.update_attributes!(request_cast_attributes(@object, attributes))</p>
+
+<pre class="code ruby"><code class="ruby">response.header[&quot;Location&quot;] = user_url(@object)
+response.status = :created   end
+</code></pre>
+
+<p>def update
+    attributes = request_extract_model(@object)
+    @object.update_attributes!(request_cast_attributes(@object, attributes))
+  end</p>
+
+<p>def destroy
+    @object.destroy!
+    render(nothing: true, status: :no_content)
+  end</p>
+
+<p>private</p>
+
+<p>def find_user
+    @object = User.find(params[:id])
+  end
+end
+```</p>
+
+<p>By definining the <code>ATTRIBUTES</code> and <code>RELATIONSHIPS</code> in your model, you can ensure no invalid attributes are provided.</p>
+
+<p><code>
+class Appointment &lt; ApplicationRecord
+  ATTRIBUTES = [:user, :assignee, :date, :reason].freeze
+  RELATIONSHIPS = {user: nil, assignee: User}.freeze
+end
+</code></p>
+
+<h2 id="model">Model</h2>
+
+<p>If your model imports <code>Apes::Model</code>, it will earn two extra nice things: additional validations and enhanced search.</p>
+
+<p>Additional validations use the same infrastructure of <code>ActiveModel::Validations</code> but it’s not bound to any attribute and it’s not reset when performing validations.</p>
+
+<p>For instance, you can do:</p>
+
+<p>```ruby
+class User &lt; ApplicationRecord
+  include Apes::Model
+end</p>
+
+<p>u = User.new
+u.additional_errors.add(“whatever”, “I don’t like my name!”)
+u.validate!
+p u.errors
+p u.all_validation_errors
+```</p>
+
+<p>Enhanced searching, instead allow to perform single or multiple rows searching using <code>find_with_any</code> (including <code>find_with_any!</code> variant) or <code>search</code>.</p>
+
+<p>The latter will perform full text search on one or more fields returning all matching rows:</p>
+
+<p><code>ruby
+ZipCode.search(params: params, query: collection, fields: ["zip", "name", "county", "state"])
+</code></p>
+
+<p>The former instead, with perform a exact search basing on the model definition and returning the first matching row:</p>
+
+<p><code>ruby
+ZipCode.find_with_any!(params[:id])
+</code></p>
+
+<p>You can customize which fields is searching on by defining the constants <code>SECONDARY_KEY</code> or <code>SECONDARY_QUERY</code> in your model.</p>
+
+<p>Note that UUID are always matched against the <code>id</code> column.</p>
+
+<h2 id="view">View</h2>
+
+<p>There’s nothing much to say here. <code>Apes::Controller</code> handles views and error rendering.</p>
+
+<p>All you need to do is to define a partial view in <code>app/views/models</code> using JBuilder.
+If your action defines <code>@objects</code> or <code>@object</code> variables, Apes will render a collection or a single object automagically.</p>
+
+<p>Example (<code>app/views/models/_appointment.json.jbuilder</code>):</p>
+
+<p>```ruby
+json.type “appointment”
+json.id object.to_param</p>
+
+<p>json.attributes do
+  json.extract! object, :date, :reason
+end</p>
+
+<p>json.relationships do
+  included = local_assigns.fetch(:included, false)</p>
+
+<p>json.assignee do
+    json.data(“user”, id: object.assignee.to_param)
+    json.links(user_url(object.assignee))
+    response_included(object.assignee) unless included
+  end</p>
+
+<p>json.user do
+    json.data(“user”, id: object.user.to_param)
+    json.links(user_url(object.user))
+    response_included(object.user) unless included
+  end
+end</p>
+
+<p>json.links do
+  json.self appointment_url(object)
+end</p>
+
+<p>json.meta(meta) if local_assigns.key?(:meta)
+```</p>
 
 <h2 id="contributing-to-apes">Contributing to apes</h2>
 
@@ -91,7 +243,7 @@
 </div></div>
 
     <div id="footer">
-  Generated on Sat Jun  4 09:48:13 2016 by
+  Generated on Sat Jun  4 12:33:33 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>

@@ -118,16 +118,16 @@
         </dt>
         <dd><pre class="code"><span class='lbrace'>{</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ActiveRecord::RecordNotFound</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_not_found</span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Errors::AuthenticationError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_fordidden</span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Errors::InvalidModelError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_invalid_source</span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Errors::BadRequestError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_bad_request</span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Errors::MissingDataError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_missing_data</span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Errors::InvalidDataError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_invalid_data</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Apes::Errors::AuthenticationError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_fordidden</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Apes::Errors::InvalidModelError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_invalid_source</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Apes::Errors::BadRequestError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_bad_request</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Apes::Errors::MissingDataError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_missing_data</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Apes::Errors::InvalidDataError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_invalid_data</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>JSON::ParserError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_invalid_data</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ActiveRecord::RecordInvalid</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_validation</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ActiveRecord::UnknownAttributeError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_unknown_attribute</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ActionController::UnpermittedParameters</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_unknown_attribute</span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Errors::BaseError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_general</span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Apes::Errors::BaseError</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_general</span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Lazier::Exceptions::Debug</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='symbol'>:error_handle_debug</span>
 <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
@@ -896,7 +896,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_error_handle_others'>error_handle_others</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='rparen'>)</span>
   <span class='ivar'>@exception</span> <span class='op'>=</span> <span class='id identifier rubyid_exception'>exception</span>
   <span class='ivar'>@backtrace</span> <span class='op'>=</span> <span class='id identifier rubyid_exception'>exception</span><span class='period'>.</span><span class='id identifier rubyid_backtrace'>backtrace</span>
-     <span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>50</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_rails_root'>rails_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>$RAILS</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_gems_root'>gems_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>$GEMS</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+     <span class='period'>.</span><span class='id identifier rubyid_slice'>slice</span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>50</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_rails_root'>rails_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>$RAILS</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_gems_root'>gems_root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>$GEMS</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>errors/500</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>status:</span> <span class='symbol'>:internal_server_error</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1046,7 +1046,7 @@
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="../Errors/BaseError.html" title="Apes::Errors::BaseError (class)">Errors::BaseError</a></span></tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Errors/BaseError.html" title="Apes::Errors::BaseError (class)">::Apes::Errors::BaseError</a></span></tt>)</span>
       
       
       
@@ -1068,7 +1068,7 @@
       <pre class="code"><span class="info file"># File 'lib/apes/concerns/errors.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fail_request!'>fail_request!</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_error'>error</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>BaseError</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>status:</span> <span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='label'>error:</span> <span class='id identifier rubyid_error'>error</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='op'>::</span><span class='const'>Apes</span><span class='op'>::</span><span class='const'>Errors</span><span class='op'>::</span><span class='const'>BaseError</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='label'>status:</span> <span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='label'>error:</span> <span class='id identifier rubyid_error'>error</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1080,7 +1080,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Jun  4 09:48:14 2016 by
+  Generated on Sat Jun  4 12:33:34 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
