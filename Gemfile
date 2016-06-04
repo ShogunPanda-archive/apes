@@ -8,7 +8,7 @@ source "http://rubygems.org"
 gemspec
 
 # Testing
-gem "sqlite3", "~> 1.3.11"
+gem "sqlite3", "~> 1.3"
 gem "rspec", "~> 3.4"
 gem "rake", "~> 11.0"
 
