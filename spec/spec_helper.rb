@@ -22,8 +22,9 @@ if ENV["COVERAGE"]
 end
 
 require "active_record"
-require File.dirname(__FILE__) + "/../lib/apes"
-Lazier.load!(:hash)
-
+require "lazier"
 ::I18n.enforce_available_locales = false
 Lazier::I18n.default_locale = :en
+
+require File.dirname(__FILE__) + "/../lib/apes"
+Lazier.load!(:hash)
