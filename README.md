@@ -1,6 +1,6 @@
 # apes
 
-[![Package Version](https://badge.fury.io/js/apes.png)](http://badge.fury.io/js/apes)
+[![Gem Version](https://badge.fury.io/rb/apes.png)](http://badge.fury.io/rb/apes)
 [![Dependency Status](https://gemnasium.com/ShogunPanda/apes.png?travis)](https://gemnasium.com/ShogunPanda/apes)
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/apes.png?branch=master)](http://travis-ci.org/ShogunPanda/apes)
 [![Coverage Status](https://coveralls.io/repos/ShogunPanda/apes/badge.png)](https://coveralls.io/r/ShogunPanda/apes)
