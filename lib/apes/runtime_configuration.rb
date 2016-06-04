@@ -59,7 +59,7 @@ module Apes
       def cors_source(default = "localhost")
         fetch_with_fallback(default) { Rails.application.secrets.cors_source }
       end
-  
+
       # Returns a map where keys are tags and values are strftime compliant formats.
       #
       # @param default [String] The fallback if no valid configuration is found in Rails.
