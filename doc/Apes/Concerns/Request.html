@@ -358,18 +358,18 @@
       <pre class="lines">
 
 
+77
+78
 79
 80
 81
 82
 83
 84
-85
-86
-87</pre>
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_cast_attributes'>request_cast_attributes</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='comma'>,</span> <span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_types'>types</span> <span class='op'>=</span> <span class='id identifier rubyid_target'>target</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_column_types'>column_types</span>
@@ -491,6 +491,8 @@
       <pre class="lines">
 
 
+55
+56
 57
 58
 59
@@ -504,12 +506,10 @@
 67
 68
 69
-70
-71
-72</pre>
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_extract_model'>request_extract_model</span><span class='lparen'>(</span><span class='id identifier rubyid_target'>target</span><span class='comma'>,</span> <span class='label'>type_field:</span> <span class='symbol'>:type</span><span class='comma'>,</span> <span class='label'>attributes_field:</span> <span class='symbol'>:attributes</span><span class='comma'>,</span> <span class='label'>relationships_field:</span> <span class='symbol'>:relationships</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:data</span><span class='rbracket'>]</span>
@@ -562,17 +562,13 @@
 16
 17
 18
-19
-20
-21</pre>
+19</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_handle_cors'>request_handle_cors</span>
-  <span class='id identifier rubyid_cors_source'>cors_source</span> <span class='op'>=</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_request_source_host'>request_source_host</span><span class='embexpr_end'>}</span><span class='tstring_content'>:4200</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_cors_source'>cors_source</span>
-
-  <span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Access-Control-Allow-Origin</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_cors_source'>cors_source</span>
+  <span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Access-Control-Allow-Origin</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Origin</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='const'>Apes</span><span class='op'>::</span><span class='const'>RuntimeConfiguration</span><span class='period'>.</span><span class='id identifier rubyid_cors_source'>cors_source</span>
   <span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Access-Control-Allow-Methods</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>POST, GET, PUT, DELETE, OPTIONS</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Access-Control-Allow-Headers</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Content-Type, X-User-Email, X-User-Token</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Access-Control-Max-Age</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -624,12 +620,12 @@
       <pre class="lines">
 
 
-39
-40
-41</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_source_host'>request_source_host</span>
   <span class='ivar'>@api_source</span> <span class='op'>||=</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_host'>host</span>
@@ -681,12 +677,12 @@
       <pre class="lines">
 
 
-46
-47
-48</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_valid_content_type'>request_valid_content_type</span>
   <span class='const'>Apes</span><span class='op'>::</span><span class='const'>Concerns</span><span class='op'>::</span><span class='const'>Request</span><span class='op'>::</span><span class='const'>CONTENT_TYPE</span>
@@ -721,6 +717,8 @@
       <pre class="lines">
 
 
+22
+23
 24
 25
 26
@@ -729,12 +727,10 @@
 29
 30
 31
-32
-33
-34</pre>
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/apes/concerns/request.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_request_validate'>request_validate</span>
   <span class='id identifier rubyid_content_type'>content_type</span> <span class='op'>=</span> <span class='id identifier rubyid_request_valid_content_type'>request_valid_content_type</span>
@@ -757,7 +753,7 @@
 </div>
 
     <div id="footer">
-  Generated on Sat Jun  4 12:41:53 2016 by
+  Generated on Tue Jun 14 10:21:04 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
