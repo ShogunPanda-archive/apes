@@ -81,7 +81,7 @@ describe Apes::RuntimeConfiguration do
     end
   
     it "should fallback to a default" do
-      expect(Apes::RuntimeConfiguration.cors_source).to eq("localhost")
+      expect(Apes::RuntimeConfiguration.cors_source).to eq("http://localhost")
       expect(Apes::RuntimeConfiguration.cors_source("DEFAULT")).to eq("DEFAULT")
     end
   end

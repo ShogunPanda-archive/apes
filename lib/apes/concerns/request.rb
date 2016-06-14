@@ -12,9 +12,7 @@ module Apes
 
       # Sets headers for CORS handling.
       def request_handle_cors
-        cors_source = Apes::RuntimeConfiguration.development? ? "http://#{request_source_host}:4200" : Apes::RuntimeConfiguration.cors_source
-
-        headers["Access-Control-Allow-Origin"] = cors_source
+        headers["Access-Control-Allow-Origin"] = request.headers["Origin"] || Apes::RuntimeConfiguration.cors_source
         headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS"
         headers["Access-Control-Allow-Headers"] = "Content-Type, X-User-Email, X-User-Token"
         headers["Access-Control-Max-Age"] = 1.year.to_i.to_s

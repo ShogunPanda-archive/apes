@@ -44,13 +44,27 @@ describe Apes::Concerns::Request do
   
   describe "#request_handle_cors" do
     it "should set the right headers" do
+      allow(subject.request).to receive(:headers).and_return({})
+      allow(subject).to receive(:request_source_host).and_return("FOO")
+
+      subject.request_handle_cors
+      expect(subject.headers).to eq({
+        "Access-Control-Allow-Headers" => "Content-Type, X-User-Email, X-User-Token",
+        "Access-Control-Allow-Methods" => "POST, GET, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Origin" => "http://localhost",
+        "Access-Control-Max-Age" => "31557600"
+      })
+    end
+
+    it "should use the Origin request header when appropriate" do
+      allow(subject.request).to receive(:headers).and_return({"Origin" => "http://whatever.com:123"})
       allow(subject).to receive(:request_source_host).and_return("FOO")
       
       subject.request_handle_cors
       expect(subject.headers).to eq({
         "Access-Control-Allow-Headers" => "Content-Type, X-User-Email, X-User-Token",
         "Access-Control-Allow-Methods" => "POST, GET, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Origin" => "http://FOO:4200",
+        "Access-Control-Allow-Origin" => "http://whatever.com:123",
         "Access-Control-Max-Age" => "31557600"
       })
     end

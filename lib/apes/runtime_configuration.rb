@@ -56,7 +56,7 @@ module Apes
       #
       # @param default [String] The fallback if no valid CORS source is found in Rails secrets file.
       # @return [String] The CORS source used by Apes.
-      def cors_source(default = "localhost")
+      def cors_source(default = "http://localhost")
         fetch_with_fallback(default) { Rails.application.secrets.cors_source }
       end
 
