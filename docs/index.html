@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!file.README.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><h1 id="apes">apes</h1>
+
+<p><a href="http://badge.fury.io/rb/apes"><img src="https://badge.fury.io/rb/apes.png" alt="Gem Version" /></a>
+<a href="https://gemnasium.com/ShogunPanda/apes"><img src="https://gemnasium.com/ShogunPanda/apes.png?travis" alt="Dependency Status" /></a>
+<a href="http://travis-ci.org/ShogunPanda/apes"><img src="https://secure.travis-ci.org/ShogunPanda/apes.png?branch=master" alt="Build Status" /></a>
+<a href="https://coveralls.io/github/ShogunPanda/apes?branch=master"><img src="https://coveralls.io/repos/github/ShogunPanda/apes/badge.svg?branch=master" alt="Coverage Status" /></a></p>
+
+<p>A tiny JSON API framework for Ruby on Rails.</p>
+
+<p>https://sw.cowtech.it/apes</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Apes makes it easy to deal with <a href="http://jsonapi.org/">JSON API</a> by abstracting all the oddities of the specification.</p>
+
+<h2 id="routes">Routes</h2>
+
+<p>There’s no requirement at all here, but a good start point for your routes might be the following:</p>
+
+<p>```ruby
+Rails.application.routes.draw do
+  # This is to enable AJAX cross domain
+  match ‘*path’, to: ‘application#handle_cors’, via: :options</p>
+
+<p># Insert your routes here</p>
+
+<p># Catch alls
+  match(“/*unused”, via: :all, to: “application#error_handle_not_found”)
+  root(to: “application#error_handle_not_found”)
+end
+```</p>
+
+<h2 id="controller">Controller</h2>
+
+<p>Once your controller inherits from <code>Apes::Controller</code>, you can implement a CRUD in virtually no time:</p>
+
+<p>```ruby
+class UsersController &lt; Apes::Controller
+  before_action :find_user, except: [:index, :create]</p>
+
+<p>def index
+    @objects = paginate(User.all)
+  end</p>
+
+<p>def show
+  end</p>
+
+<p>def create
+    @object = User.new
+    attributes = request_extract_model(@object)
+    @object.update_attributes!(request_cast_attributes(@object, attributes))</p>
+
+<pre class="code ruby"><code class="ruby">response.header[&quot;Location&quot;] = user_url(@object)
+response.status = :created   end
+</code></pre>
+
+<p>def update
+    attributes = request_extract_model(@object)
+    @object.update_attributes!(request_cast_attributes(@object, attributes))
+  end</p>
+
+<p>def destroy
+    @object.destroy!
+    render(nothing: true, status: :no_content)
+  end</p>
+
+<p>private</p>
+
+<p>def find_user
+    @object = User.find(params[:id])
+  end
+end
+```</p>
+
+<p>By definining the <code>ATTRIBUTES</code> and <code>RELATIONSHIPS</code> in your model, you can ensure no invalid attributes are provided.</p>
+
+<p><code>ruby
+class Appointment &lt; ApplicationRecord
+  ATTRIBUTES = [:user, :assignee, :date, :reason].freeze
+  RELATIONSHIPS = {user: nil, assignee: User}.freeze
+end
+</code></p>
+
+<h2 id="model">Model</h2>
+
+<p>If your model imports <code>Apes::Model</code>, it will earn two extra nice things: additional validations and enhanced search.</p>
+
+<p>Additional validations use the same infrastructure of <code>ActiveModel::Validations</code> but it’s not bound to any attribute and it’s not reset when performing validations.</p>
+
+<p>For instance, you can do:</p>
+
+<p>```ruby
+class User &lt; ApplicationRecord
+  include Apes::Model
+end</p>
+
+<p>u = User.new
+u.additional_errors.add(“whatever”, “I don’t like my name!”)
+u.validate!
+p u.errors
+p u.all_validation_errors
+```</p>
+
+<p>Enhanced searching, instead allow to perform single or multiple rows searching using <code>find_with_any</code> (including <code>find_with_any!</code> variant) or <code>search</code>.</p>
+
+<p>The latter will perform full text search on one or more fields returning all matching rows:</p>
+
+<p><code>ruby
+ZipCode.search(params: params, query: collection, fields: ["zip", "name", "county", "state"])
+</code></p>
+
+<p>The former instead, with perform a exact search basing on the model definition and returning the first matching row:</p>
+
+<p><code>ruby
+ZipCode.find_with_any!(params[:id])
+</code></p>
+
+<p>You can customize which fields is searching on by defining the constants <code>SECONDARY_KEY</code> or <code>SECONDARY_QUERY</code> in your model.</p>
+
+<p>Note that UUID are always matched against the <code>id</code> column.</p>
+
+<h2 id="view">View</h2>
+
+<p>There’s nothing much to say here. <code>Apes::Controller</code> handles views and error rendering.</p>
+
+<p>All you need to do is to define a partial view in <code>app/views/models</code> using JBuilder.
+If your action defines <code>@objects</code> or <code>@object</code> variables, Apes will render a collection or a single object automagically.</p>
+
+<p>Example (<code>app/views/models/_appointment.json.jbuilder</code>):</p>
+
+<p>```ruby
+json.type “appointment”
+json.id object.to_param</p>
+
+<p>json.attributes do
+  json.extract! object, :date, :reason
+end</p>
+
+<p>json.relationships do
+  included = local_assigns.fetch(:included, false)</p>
+
+<p>json.assignee do
+    json.data(“user”, id: object.assignee.to_param)
+    json.links(user_url(object.assignee))
+    response_included(object.assignee) unless included
+  end</p>
+
+<p>json.user do
+    json.data(“user”, id: object.user.to_param)
+    json.links(user_url(object.user))
+    response_included(object.user) unless included
+  end
+end</p>
+
+<p>json.links do
+  json.self appointment_url(object)
+end</p>
+
+<p>json.meta(meta) if local_assigns.key?(:meta)
+```</p>
+
+<h2 id="api-documentation">API Documentation</h2>
+
+<p>The API documentation can be found <a href="https://sw.cowtech.it/apes/docs">here</a>.</p>
+
+<h2 id="contributing-to-apes">Contributing to apes</h2>
+
+<ul>
+  <li>Check out the latest master to make sure the feature hasn’t been implemented or the bug hasn’t been fixed yet.</li>
+  <li>Check out the issue tracker to make sure someone already hasn’t requested it and/or contributed it.</li>
+  <li>Fork the project.</li>
+  <li>Start a feature/bugfix branch.</li>
+  <li>Commit and push until you are happy with your contribution.</li>
+  <li>Make sure to add tests for it. This is important so I don’t break it in a future version unintentionally.</li>
+</ul>
+
+<h2 id="copyright">Copyright</h2>
+
+<p>Copyright (C) 2016 and above Shogun <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#115;&#104;&#111;&#103;&#117;&#110;&#064;&#099;&#111;&#119;&#116;&#101;&#099;&#104;&#046;&#105;&#116;">&#115;&#104;&#111;&#103;&#117;&#110;&#064;&#099;&#111;&#119;&#116;&#101;&#099;&#104;&#046;&#105;&#116;</a>.</p>
+
+<p>Licensed under the MIT license, which can be found at http://opensource.org/licenses/MIT.</p>
+</div></div>
+
+    <div id="footer">
+  Generated on Thu Aug 18 15:49:46 2016 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.3.0).
+</div>
+
+  </body>
+</html>
