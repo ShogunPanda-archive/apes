@@ -3,13 +3,11 @@
 [![Gem Version](https://badge.fury.io/rb/apes.png)](http://badge.fury.io/rb/apes)
 [![Dependency Status](https://gemnasium.com/ShogunPanda/apes.png?travis)](https://gemnasium.com/ShogunPanda/apes)
 [![Build Status](https://secure.travis-ci.org/ShogunPanda/apes.png?branch=master)](http://travis-ci.org/ShogunPanda/apes)
-[![Coverage Status](https://coveralls.io/repos/ShogunPanda/apes/badge.png)](https://coveralls.io/r/ShogunPanda/apes)
+[![Coverage Status](https://coveralls.io/repos/github/ShogunPanda/apes/badge.svg?branch=master)](https://coveralls.io/github/ShogunPanda/apes?branch=master)
 
 A tiny JSON API framework for Ruby on Rails.
 
 https://sw.cowtech.it/apes
-
-https://github.com/ShogunPanda/apes
 
 # Introduction
 
@@ -76,7 +74,7 @@ end
 
 By definining the `ATTRIBUTES` and `RELATIONSHIPS` in your model, you can ensure no invalid attributes are provided.
 
-```
+```ruby
 class Appointment < ApplicationRecord
   ATTRIBUTES = [:user, :assignee, :date, :reason].freeze
   RELATIONSHIPS = {user: nil, assignee: User}.freeze
@@ -146,7 +144,7 @@ json.relationships do
     json.links({related: user_url(object.assignee)})
     response_included(object.assignee) unless included
   end
-  
+
   json.user do
     json.data({type: "user", id: object.user.to_param})
     json.links({related: user_url(object.user)})
@@ -160,6 +158,10 @@ end
 
 json.meta(meta) if local_assigns.key?(:meta)
 ```
+
+## API Documentation
+
+The API documentation can be found [here](https://sw.cowtech.it/apes/docs).
 
 ## Contributing to apes
 

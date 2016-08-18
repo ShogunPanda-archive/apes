@@ -66,13 +66,11 @@
 <p><a href="http://badge.fury.io/rb/apes"><img src="https://badge.fury.io/rb/apes.png" alt="Gem Version" /></a>
 <a href="https://gemnasium.com/ShogunPanda/apes"><img src="https://gemnasium.com/ShogunPanda/apes.png?travis" alt="Dependency Status" /></a>
 <a href="http://travis-ci.org/ShogunPanda/apes"><img src="https://secure.travis-ci.org/ShogunPanda/apes.png?branch=master" alt="Build Status" /></a>
-<a href="https://coveralls.io/r/ShogunPanda/apes"><img src="https://coveralls.io/repos/ShogunPanda/apes/badge.png" alt="Coverage Status" /></a></p>
+<a href="https://coveralls.io/github/ShogunPanda/apes?branch=master"><img src="https://coveralls.io/repos/github/ShogunPanda/apes/badge.svg?branch=master" alt="Coverage Status" /></a></p>
 
 <p>A tiny JSON API framework for Ruby on Rails.</p>
 
 <p>https://sw.cowtech.it/apes</p>
-
-<p>https://github.com/ShogunPanda/apes</p>
 
 <h1 id="introduction">Introduction</h1>
 
@@ -139,7 +137,7 @@ end
 
 <p>By definining the <code>ATTRIBUTES</code> and <code>RELATIONSHIPS</code> in your model, you can ensure no invalid attributes are provided.</p>
 
-<p><code>
+<p><code>ruby
 class Appointment &lt; ApplicationRecord
   ATTRIBUTES = [:user, :assignee, :date, :reason].freeze
   RELATIONSHIPS = {user: nil, assignee: User}.freeze
@@ -224,6 +222,10 @@ end</p>
 <p>json.meta(meta) if local_assigns.key?(:meta)
 ```</p>
 
+<h2 id="api-documentation">API Documentation</h2>
+
+<p>The API documentation can be found <a href="https://sw.cowtech.it/apes/docs">here</a>.</p>
+
 <h2 id="contributing-to-apes">Contributing to apes</h2>
 
 <ul>
@@ -243,7 +245,7 @@ end</p>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Jun 14 10:21:03 2016 by
+  Generated on Thu Aug 18 15:36:09 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.3.0).
 </div>
