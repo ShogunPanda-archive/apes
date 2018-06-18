@@ -5,6 +5,10 @@
 [![Build Status](https://img.shields.io/travis/ShogunPanda/apes.svg)](http://travis-ci.org/ShogunPanda/apes)
 [![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/apes.svg)](https://coveralls.io/github/ShogunPanda/apes)
 
+## END OF DEVELOPMENT NOTICE
+
+# This gem has been discontinued.
+
 A tiny JSON API framework for Ruby on Rails.
 
 https://sw.cowtech.it/apes
@@ -165,15 +169,15 @@ The API documentation can be found [here](https://sw.cowtech.it/apes/docs).
 
 ## Contributing to apes
 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
-* Fork the project.
-* Start a feature/bugfix branch.
-* Commit and push until you are happy with your contribution.
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+- Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
+- Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
+- Fork the project.
+- Start a feature/bugfix branch.
+- Commit and push until you are happy with your contribution.
+- Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 
 ## Copyright
 
-Copyright (C) 2016 and above Shogun <shogun@cowtech.it>.
+Copyright (C) 2016 and above Shogun <mailto:shogun@cowtech.it>.
 
 Licensed under the MIT license, which can be found at https://choosealicense.com/licenses/mit.
