@@ -1,23 +1,14 @@
 # apes
 
-[![Gem Version](https://img.shields.io/gem/v/apes.svg)](https://rubygems.org/gems/apes)
-[![Dependency Status](https://img.shields.io/gemnasium/ShogunPanda/apes.svg)](https://gemnasium.com/ShogunPanda/apes)
-[![Build Status](https://img.shields.io/travis/ShogunPanda/apes.svg)](http://travis-ci.org/ShogunPanda/apes)
-[![Coverage Status](https://img.shields.io/coveralls/github/ShogunPanda/apes.svg)](https://coveralls.io/github/ShogunPanda/apes)
-
-## END OF DEVELOPMENT NOTICE
-
-# This gem has been discontinued.
+## END OF DEVELOPMENT NOTICE - This gem has been discontinued
 
 A tiny JSON API framework for Ruby on Rails.
 
-https://sw.cowtech.it/apes
-
-# Introduction
+## Usage
 
 Apes makes it easy to deal with [JSON API](http://jsonapi.org/) by abstracting all the oddities of the specification.
 
-## Routes
+### Routes
 
 There's no requirement at all here, but a good start point for your routes might be the following:
 
@@ -34,7 +25,7 @@ Rails.application.routes.draw do
 end
 ```
 
-## Controller
+### Controller
 
 Once your controller inherits from `Apes::Controller`, you can implement a CRUD in virtually no time:
 
@@ -85,7 +76,7 @@ class Appointment < ApplicationRecord
 end
 ```
 
-## Model
+### Model
 
 If your model imports `Apes::Model`, it will earn two extra nice things: additional validations and enhanced search.
 
@@ -123,7 +114,7 @@ You can customize which fields is searching on by defining the constants `SECOND
 
 Note that UUID are always matched against the `id` column.
 
-## View
+### View
 
 There's nothing much to say here. `Apes::Controller` handles views and error rendering.
 
